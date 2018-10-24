@@ -22,4 +22,15 @@ This will run a puppeteer test against headless chrome, which does the following
 3. Turn on `Clear-Site-Data: "storage"`
 4. Reload `/`
 
-In both puppeteer and manual testing in Chrome, the last request hangs and never finishes. From looking at the devTools, the service worker installation (which I assume was caused by the change in header) hangs indefinitely. Attempting to unregister the worker at `chrome://serviceworker-internals` doesn't work. The only way to recover is to unregister at `chrome://serviceworker-internals` AND restart chrome. Simply restarting chrome does not fix the problem, and returning to the test app will still hang requests.
+In both puppeteer and manual testing in Chrome, the last request hangs and never finishes. From looking at the devTools, the service worker installation (which I assume was caused by the change in header) hangs indefinitely. Manual requests to `sw.js` also hang. Attempting to unregister the worker at `chrome://serviceworker-internals` doesn't work. The only way to recover is to unregister at `chrome://serviceworker-internals` AND restart chrome. Simply restarting chrome does not fix the problem, and returning to the test app will still hang requests.
+
+## Screenshots
+
+When applying the `Clear-Site-Data` header BEFORE registering a service worker, the console seems to indicate that the header is working appropriately.
+![clear-site-data setup](https://raw.githubusercontent.com/asakusuma/sw-clear-site-data/master/screenshots/clear-storage-on.png "clear-site-data setup")
+
+Once the service worker is added, loading gets stuck.
+![loading stuck](https://raw.githubusercontent.com/asakusuma/sw-clear-site-data/master/screenshots/loading-stuck.png "loading stuck")
+
+Chrome internals also gets stuck
+![internals stuck](https://raw.githubusercontent.com/asakusuma/sw-clear-site-data/master/screenshots/internals-stuck.png "internals stuck")
