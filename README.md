@@ -22,4 +22,4 @@ Notice that "storage" seems to be recongized, but "executionContexts" is not. Sa
 
 ![clear-site-data setup](https://raw.githubusercontent.com/asakusuma/sw-clear-site-data/directive-chrome-bug/screenshots/executionContexts-clear-site-data.png "clear-site-data setup")
 
-![loading stuck](https://raw.githubusercontent.com/asakusuma/sw-clear-site-data/directive-chrome-bug/screenshots/wildcard-clear-site-data.pngg "loading stuck")
+![loading stuck](https://raw.githubusercontent.com/asakusuma/sw-clear-site-data/directive-chrome-bug/screenshots/wildcard-clear-site-data.png "loading stuck")
