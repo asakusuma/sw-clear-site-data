@@ -27,3 +27,19 @@ window.logSwReg = function () {
     console.error(e);
   });
 }
+
+window.unregisterSw = function () {
+  navigator.serviceWorker.getRegistration().then((r) => {
+    return r.unregister();
+  }).then(() => {
+    console.log('sw unregistered')
+  }, (e) => {
+    console.error(e);
+  });
+}
+
+window.fetchSwPage = function () {
+  fetch('/sw-page').then((r) => {
+    console.log(r);
+  });
+}
