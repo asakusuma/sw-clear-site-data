@@ -25,6 +25,14 @@ This will run a puppeteer test against headless chrome, which does the following
 
 In both puppeteer and manual testing in Chrome, the last request hangs and never finishes. From looking at the devTools, the service worker installation (which I assume was caused by the change in header) hangs indefinitely. Manual requests to `sw.js` also hang. Attempting to unregister the worker at `chrome://serviceworker-internals` doesn't work. The only way to recover is to unregister at `chrome://serviceworker-internals` AND restart chrome. Simply restarting chrome does not fix the problem, and returning to the test app will still hang requests.
 
+Firefox doesn't even seem to respect `Clear-Site-Data`. The devTools still show the service worker running, and `sw-page` still loads.
+
+## Related Chrome Tickets
+
+* [Service Worker stuck on "status: installing" after Clear Site Data in DevTools](https://bugs.chromium.org/p/chromium/issues/detail?id=795691)
+* [Clear-Site-Data cookie deletion breaks loading](https://bugs.chromium.org/p/chromium/issues/detail?id=798760)
+* [Clear-Site-Data cache deletion can be slow and break loading](https://bugs.chromium.org/p/chromium/issues/detail?id=762417)
+
 ## Screenshots
 
 When applying the `Clear-Site-Data` header BEFORE registering a service worker, the console seems to indicate that the header is working appropriately.
