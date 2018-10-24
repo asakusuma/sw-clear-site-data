@@ -7,12 +7,17 @@ module.exports = function() {
 
   app.use(function(req, res, next) {
     if (clearSiteDataFlag) {
-      res.setHeader('Clear-Site-Data', ['"storage"'])
+      res.setHeader('Clear-Site-Data', ['"storage"', '"executionContexts"'])
     }
     next();
   });
 
-  app.use(express.static('static'))
+  app.use(express.static('static'));
+
+  app.get('/clearSiteDataOn', function(req, res) {
+    clearSiteDataFlag = true;
+    res.send('Clear-Site-Data: "storage", "executionContexts"');
+  });
 
   app.listen(port, () => console.log(`Example app listening on port ${port}!`))
   return {
