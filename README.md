@@ -25,4 +25,4 @@ Several buttons in the app that log debugging to the console
 * Notice that the index.html response included `Clear-Site-Data: "storage"`
 * Cache is not cleared and service worker is still registered. Click "Read cache" and "log sw registration" and see console output to confirm.
 
-![firefox issue](https://raw.githubusercontent.com/asakusuma/firefox-bug/master/screenshots/firefox-repro.png "firefox issue")
+![firefox issue](https://raw.githubusercontent.com/asakusuma/sw-clear-site-data/firefox-bug/screenshots/firefox-repro.png "firefox issue")
