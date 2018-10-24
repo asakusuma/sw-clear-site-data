@@ -13,6 +13,7 @@ The test server exposes a route `/clearSiteDataOn` that will cause all subsiquen
 ## Running the test
 
 `yarn init`
+
 `yarn test`
 
 This will run a puppeteer test against headless chrome, which does the following:
