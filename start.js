@@ -1,2 +1,2 @@
 const boot = require('./server');
-boot();
+boot().clearSiteDataOn();

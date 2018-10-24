@@ -7,7 +7,7 @@ module.exports = function() {
 
   app.use(function(req, res, next) {
     if (clearSiteDataFlag) {
-      res.setHeader('Clear-Site-Data', ['"storage"'])
+      res.setHeader('Clear-Site-Data', ['"storage", "executionContexts"'])
     }
     next();
   });
