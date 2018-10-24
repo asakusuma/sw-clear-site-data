@@ -12,7 +12,7 @@ The test server exposes a route `/clearSiteDataOn` that will cause all subsiquen
 
 ## Running the test
 
-`yarn init`
+`yarn`
 
 `yarn test`
 
