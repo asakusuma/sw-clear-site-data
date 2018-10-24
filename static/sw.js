@@ -9,5 +9,10 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  e.respondWith(fetch(e.request));
+  const url = new URL(e.request.url);
+  if (url.pathname === '/sw-page') {
+    e.respondWith(fetch('/'));
+  } else {
+    e.respondWith(fetch(e.request));
+  }
 });
