@@ -17,3 +17,12 @@ Several buttons in the app that log debugging to the console
 
 `node start.js`
 
+* Navigate to `http://localhost:3000`
+* Click "Register service worker"
+* Click "Popluate Cache"
+* Open devTools and verify that cache has been populated and service worker is registered
+* Refresh
+* Notice that the index.html response included `Clear-Site-Data: "storage"`
+* Cache is not cleared and service worker is still registered. Click "Read cache" and "log sw registration" and see console output to confirm.
+
+![firefox issue](https://raw.githubusercontent.com/asakusuma/firefox-bug/master/screenshots/firefox-repro.png "firefox issue")
