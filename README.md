@@ -1,14 +1,15 @@
 # sw-clear-site-data
 
-Chrome doesn't seem to recognize "executionContexts" or "*" wildcard directive.
+Chrome doesn't seem to recognize "executionContexts" or "*" wildcard directive. This repo is a node web application that reproduces [Chrome bug 898503](https://bugs.chromium.org/p/chromium/issues/detail?id=898503).
 
-`yarn`
+## Reproducing the issue
 
-`node start.js`
-
-* Navigate to `http://localhost:3000/`
-* Open devTools
-* Refresh
+1. Clone the repo and `cd` into the directory in the command line
+2. Run `yarn`
+3. Run `node start.js`
+4. Navigate to `http://localhost:3000/` in Chrome
+5. Open devTools
+6. Refresh
 
 You should the following error:
 
