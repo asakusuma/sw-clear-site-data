@@ -23,9 +23,13 @@ This will run a puppeteer test against headless chrome, which does the following
 3. Turn on `Clear-Site-Data: "storage"`
 4. Reload `/`
 
+You can also manually test, by running `yarn serve`.
+
 In both puppeteer and manual testing in Chrome, the last request hangs and never finishes. From looking at the devTools, the service worker installation (which I assume was caused by the change in header) hangs indefinitely. Manual requests to `sw.js` also hang. Attempting to unregister the worker at `chrome://serviceworker-internals` doesn't work. The only way to recover is to unregister at `chrome://serviceworker-internals` AND restart chrome. Simply restarting chrome does not fix the problem, and returning to the test app will still hang requests.
 
-Firefox doesn't even seem to respect `Clear-Site-Data`. The devTools still show the service worker running, and `sw-page` still loads.
+This bug has been reported: [cr898465](https://bugs.chromium.org/p/chromium/issues/detail?id=898465)
+
+~~Firefox doesn't even seem to respect `Clear-Site-Data`. The devTools still show the service worker running, and `sw-page` still loads.~~ ([Firefox bug](https://bugzilla.mozilla.org/show_bug.cgi?id=1501695) was actually just for localhost)
 
 ## Related Chrome Tickets
 
