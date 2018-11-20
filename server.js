@@ -7,7 +7,7 @@ module.exports = function() {
 
   app.use(function(req, res, next) {
     if (clearSiteDataFlag && req.path === '/sw.js') {
-      res.setHeader('Clear-Site-Data', ['"storage"'])
+      res.setHeader('Clear-Site-Data', ['"storage", "executionContexts"'])
     }
     next();
   });
