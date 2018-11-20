@@ -27,5 +27,17 @@ const handle = boot();
 
   console.log('second request fromServiceWorker', response2.fromServiceWorker());
 
+  const response3 = await page.reload('http://localhost:3000', {
+    waitUntil: 'load'
+  });
+
+  const fromServiceWorker = response3.fromServiceWorker();
+
+  console.log('third request fromServiceWorker', fromServiceWorker);
+
+  if (fromServiceWorker) {
+    throw new Error('Third request should not still be from service worker after Clear-Site-Data');
+  }
+
   await browser.close();
 })();
