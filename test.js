@@ -29,5 +29,11 @@ const handle = boot();
 
   console.log('second request fromServiceWorker', response2.fromServiceWorker());
 
+  const response3 = await page.reload('http://localhost:3000', {
+    waitUntil: 'load'
+  });
+
+  console.log('third request fromServiceWorker', response3.fromServiceWorker());
+
   await browser.close();
 })();
