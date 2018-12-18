@@ -3,7 +3,9 @@ const boot = require('./server');
 const handle = boot();
 
 (async () => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    executablePath: '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
+  });
   const page = await browser.newPage();
   await page.goto('http://localhost:3000', {
     waitUntil: 'load'
