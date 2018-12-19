@@ -35,5 +35,17 @@ const handle = boot();
 
   console.log('third request fromServiceWorker', response3.fromServiceWorker());
 
+  await page.click('#register-sw');
+
+  await new Promise((resolve) => {
+    setTimeout(resolve, 1000);
+  });
+
+  const response4 = await page.reload('http://localhost:3000', {
+    waitUntil: 'load'
+  });
+
+  console.log('fourth request fromServiceWorker', response4.fromServiceWorker());
+
   await browser.close();
 })();
