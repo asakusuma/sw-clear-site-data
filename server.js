@@ -7,6 +7,8 @@ module.exports = function() {
 
   let version = 0;
 
+  let CSDcount = 0;
+
   function getVersion(tag) {
     if (!tag) {
       return NaN;
@@ -19,6 +21,10 @@ module.exports = function() {
       res.set('ETag', `v_${version}_killed`);
       const clientVersion = getVersion(req.get('If-None-Match'));
       if (isNaN(clientVersion) || clientVersion < version) {
+        console.log('CSD', CSDcount, req.url);
+        console.log('client version', clientVersion);
+        console.log('version', version);
+        CSDcount++;
         res.setHeader('Clear-Site-Data', ['"storage"'])
       }
     }
