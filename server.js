@@ -5,9 +5,22 @@ module.exports = function() {
 
   let clearSiteDataFlag = false;
 
-  app.use(function(_req, res, next) {
+  let version = 0;
+
+  function getVersion(tag) {
+    if (!tag) {
+      return NaN;
+    }
+    return Number(tag.split('_')[1]);
+  }
+
+  app.use(function(req, res, next) {
     if (clearSiteDataFlag) {
-      res.setHeader('Clear-Site-Data', ['"storage"'])
+      res.set('ETag', `v_${version}_killed`);
+      const clientVersion = getVersion(req.get('If-None-Match'));
+      if (isNaN(clientVersion) || clientVersion < version) {
+        res.setHeader('Clear-Site-Data', ['"storage"'])
+      }
     }
     next();
   });
@@ -15,6 +28,7 @@ module.exports = function() {
   app.use(express.static('static'));
 
   app.get('/clearSiteDataOn', function(_req, res) {
+    version++;
     clearSiteDataFlag = true;
     res.send('Turing on clear site data');
   });
