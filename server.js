@@ -17,7 +17,8 @@ module.exports = function() {
   }
 
   app.use(function(req, res, next) {
-    if (clearSiteDataFlag) {
+    if (req.url === '/sw.js' && clearSiteDataFlag) {
+      console.log('setting ETag on SW', version);
       res.set('ETag', `v_${version}_killed`);
       const clientVersion = getVersion(req.get('If-None-Match'));
       if (isNaN(clientVersion) || clientVersion < version) {
