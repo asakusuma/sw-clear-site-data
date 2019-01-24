@@ -1,5 +1,6 @@
 const version = '{{VERSION}}';
 
+/*
 self.addEventListener('install', () => {
   return self.skipWaiting();
 });
@@ -7,6 +8,7 @@ self.addEventListener('install', () => {
 self.addEventListener('activate', (e) => {
   e.waitUntil(self.clients.claim());
 });
+*/
 
 function injectVersion(request) {
   return request.then((response) => {

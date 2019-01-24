@@ -24,32 +24,36 @@ module.exports = function() {
 
   app.get('/', function(_req, res) {
     res.set('Content-Type', 'text/html');
-    res.send(homepageSource.replace('{{VERSION}}', version));
+
+    let homepage = homepageSource.replace('{{VERSION}}', version);
+
+    if (!clearSiteDataFlag) {
+      homepage = homepage.replace('</head>', '<script>navigator.serviceWorker.register("sw.js")</script></head>');
+    }
+
+    res.send(homepage);
     res.end();
   });
 
   app.get('/sw.js', function (req, res) {
     res.set('Content-Type', 'text/javascript');
 
-    if (clearSiteDataFlag) {
-      console.log('setting ETag on SW', version);
-      // If we are serving the service worker file and the CSD flag is on,
-      // mark that we've served the given client a directive to kill this
-      // particular version of the service worker
-      res.set('ETag', `v_${version}_killed`);
+    console.log('setting ETag on SW', version);
+    res.set('ETag', `v_${version}`);
 
-      // Retrieve the last version that was killeds
-      const clientVersion = getVersion(req.get('If-None-Match'));
+    // Retrieve the last seen version
+    console.log('if-none-matched', req.get('If-None-Match'));
+    const clientVersion = getVersion(req.get('If-None-Match'));
+    console.log('Reading last ', clientVersion);
 
-      // If we've never killed another version, or the last version we killed
-      // is older than the last version killed, send CSD
-      if (isNaN(clientVersion) || clientVersion < version) {
-        console.log('CSD', CSDcount, req.url);
-        console.log('client version', clientVersion);
-        console.log('version', version);
-        CSDcount++;
-        res.setHeader('Clear-Site-Data', ['"storage"'])
-      }
+    if (clearSiteDataFlag || (!isNaN(clientVersion) && clientVersion < version)) {
+      // If the client has seen a service worker script, and the last seen version
+      // is older than the last version (i.e. has been previously killed), send CSD
+      console.log('Sending CSD');
+      console.log('client version', clientVersion);
+      console.log('version', version);
+      CSDcount++;
+      res.setHeader('Clear-Site-Data', ['"storage"']);
     }
 
     res.send(swSource.replace('{{VERSION}}', version));
