@@ -1,5 +1,6 @@
 module.exports = function() {
   const express = require('express');
+  const fs = require('fs');
   const app = express();
   const port = 3000;
 
@@ -16,8 +17,21 @@ module.exports = function() {
     return Number(tag.split('_')[1]);
   }
 
-  app.use(function(req, res, next) {
-    if (req.url === '/sw.js' && clearSiteDataFlag) {
+  app.use(express.static('static'));
+
+  const homepageSource = fs.readFileSync('./sources/index.html', 'utf8');
+  const swSource = fs.readFileSync('./sources/sw.js', 'utf8');
+
+  app.get('/', function(_req, res) {
+    res.set('Content-Type', 'text/html');
+    res.send(homepageSource.replace('{{VERSION}}', version));
+    res.end();
+  });
+
+  app.get('/sw.js', function (req, res) {
+    res.set('Content-Type', 'text/javascript');
+
+    if (clearSiteDataFlag) {
       console.log('setting ETag on SW', version);
       // If we are serving the service worker file and the CSD flag is on,
       // mark that we've served the given client a directive to kill this
@@ -37,10 +51,10 @@ module.exports = function() {
         res.setHeader('Clear-Site-Data', ['"storage"'])
       }
     }
-    next();
-  });
 
-  app.use(express.static('static'));
+    res.send(swSource.replace('{{VERSION}}', version));
+    res.end();
+  });
 
   app.get('/clearSiteDataOn', function(_req, res) {
     version++;
