@@ -20,3 +20,17 @@ Unforunately, Clear-Site-Data does not work with serivce workers in the latest s
 
 Clear-Site-Data does not work with localhost in the latest stable release of Firefox (64), but [has been fixed in 65](https://bugzilla.mozilla.org/show_bug.cgi?id=1501695).
 
+## Serving the App
+
+1. `yarn`
+2. `yarn serve`
+
+## Demonstrating the stateful killswitch
+
+1. Load `http://localhost:3000` in Firefox 65+
+2. Load `http://localhost:3000` in Chrome Canary
+3. Refresh in both browsers. Page should now say `From service worker version 0`.
+4. Click `Turn on Clear-Site-Data` in Chrome Canary. Then refresh a few times until page says `From server`.
+5. Click `Turn off Clear-Site-Data` from Chrome Canary. Then refresh a few times until page says `From service worker verison 1`.
+
+The service worker version is incremented every time CSD is turned on.
