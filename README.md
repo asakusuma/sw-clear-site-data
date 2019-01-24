@@ -32,5 +32,6 @@ Clear-Site-Data does not work with localhost in the latest stable release of Fir
 3. Refresh in both browsers. Page should now say `From service worker version 0`.
 4. Click `Turn on Clear-Site-Data` in Chrome Canary. Then refresh a few times until page says `From server`.
 5. Click `Turn off Clear-Site-Data` from Chrome Canary. Then refresh a few times until page says `From service worker verison 1`.
+6. Go back to Firefox and refresh a few times. You should see one load with `From server`, followed by a load with `From service worker version `.
 
 The service worker version is incremented every time CSD is turned on.
