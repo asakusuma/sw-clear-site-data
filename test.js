@@ -1,5 +1,6 @@
 const puppeteer = require('puppeteer');
 const boot = require('./server');
+const { wait } = require('./helpers');
 const handle = boot();
 
 (async () => {
@@ -15,6 +16,8 @@ const handle = boot();
     return navigator.serviceWorker.register('sw.js');
   });
 
+  await wait(1000);
+
   const response1 = await page.reload('http://localhost:3000', {
     waitUntil: 'load'
   });
@@ -23,11 +26,19 @@ const handle = boot();
 
   handle.clearSiteDataOn();
 
+  await wait(1000);
+
   const response2 = await page.reload('http://localhost:3000', {
     waitUntil: 'load'
   });
 
   console.log('second request fromServiceWorker', response2.fromServiceWorker());
+
+  const response3 = await page.reload('http://localhost:3000', {
+    waitUntil: 'load'
+  });
+
+  console.log('third request fromServiceWorker', response3.fromServiceWorker());
 
   await browser.close();
   handle.close();
