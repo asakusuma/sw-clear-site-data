@@ -16,7 +16,7 @@ module.exports = function() {
 
   app.get('/clearSiteDataOn', function(req, res) {
     clearSiteDataFlag = true;
-    res.send('Clear-Site-Data: "storage", "executionContexts"');
+    res.send('Clear-Site-Data: "storage"');
   });
 
   app.listen(port, () => console.log(`Clear-Site-Data test app running on port ${port}!`))

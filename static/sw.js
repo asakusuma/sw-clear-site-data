@@ -15,4 +15,16 @@ self.addEventListener('fetch', (e) => {
   } else {
     e.respondWith(fetch(e.request));
   }
+
+  const simulateWork = new Promise(function(resolve) {
+    const logging = setInterval(function() {
+      console.log('Simluate SW work');
+    }, 1000);
+    setTimeout(() => {
+      clearInterval(logging);
+      resolve();
+    }, 60 * 1000);
+  });
+
+  e.waitUntil(simulateWork);
 });
