@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
 const boot = require('./server');
-const { wait } = require('./helpers');
+const { wait, getServiceWorkerHandle } = require('./helpers');
 const handle = boot();
 
 (async () => {
@@ -18,6 +18,8 @@ const handle = boot();
     waitUntil: 'load'
   });
 
+  const sw = await getServiceWorkerHandle(browser);
+
   await page1.evaluate(() => {
     return navigator.serviceWorker.register('sw.js');
   });
@@ -27,6 +29,10 @@ const handle = boot();
   });
 
   await wait(1000);
+
+  const inspect = await sw.inspect();
+
+  console.log(inspect);
 
   const response1 = await page1.reload('http://localhost:3000', {
     waitUntil: 'load'
