@@ -19,13 +19,16 @@ module.exports = function() {
     res.send('Clear-Site-Data: "storage"');
   });
 
-  app.listen(port, () => console.log(`Clear-Site-Data test app running on port ${port}!`))
+  const server = app.listen(port, () => console.log(`Clear-Site-Data test app running on port ${port}!`))
   return {
     clearSiteDataOn() {
       clearSiteDataFlag = true;
     },
     clearSiteDataOff() {
       clearSiteDataFlag = false;
+    },
+    close() {
+      server.close();
     }
   };
 }

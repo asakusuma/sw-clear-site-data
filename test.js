@@ -30,4 +30,5 @@ const handle = boot();
   console.log('second request fromServiceWorker', response2.fromServiceWorker());
 
   await browser.close();
+  handle.close();
 })();
