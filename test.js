@@ -3,9 +3,12 @@ const boot = require('./server');
 const { wait } = require('./helpers');
 const handle = boot();
 
+const EDGE_PATH = '/Applications/Microsoft\ Edge\ Dev.app/Contents/MacOS/Microsoft\ Edge\ Dev';
+const CHROME_CANARY_PATH = '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary';
+
 (async () => {
   const browser = await puppeteer.launch({
-    executablePath: '/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary'
+    executablePath: EDGE_PATH
   });
 
   const page = await browser.newPage();
