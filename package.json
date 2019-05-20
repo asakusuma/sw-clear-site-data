@@ -6,8 +6,8 @@
   "author": "asakusuma <asa.kusuma@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.16.4",
-    "puppeteer": "^1.9.0"
+    "express": "^4.17.0",
+    "puppeteer": "^1.16.0"
   },
   "scripts": {
     "test": "node test.js",
