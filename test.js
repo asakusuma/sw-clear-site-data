@@ -8,7 +8,7 @@ const CHROME_CANARY_PATH = '/Applications/Google\ Chrome\ Canary.app/Contents/Ma
 
 (async () => {
   const browser = await puppeteer.launch({
-    executablePath: EDGE_PATH
+    executablePath: CHROME_CANARY_PATH
   });
 
   const page = await browser.newPage();
@@ -31,13 +31,15 @@ const CHROME_CANARY_PATH = '/Applications/Google\ Chrome\ Canary.app/Contents/Ma
 
   handle.clearSiteDataOn();
 
-  await wait(1000);
+  await wait(2000);
 
   const response2 = await page.reload('http://localhost:3000', {
     waitUntil: 'load'
   });
 
   console.log('second request fromServiceWorker', response2.fromServiceWorker());
+
+  await wait(2000);
 
   const response3 = await page.reload('http://localhost:3000', {
     waitUntil: 'load'

@@ -1,10 +1,13 @@
 <html>
   <head>
     <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript">
+      navigator.serviceWorker.register('sw.js');
+    </script>
   </head>
   <body>
     Clear-Site-Data test app
-    <button onclick="navigator.serviceWorker.register('sw.js')">Register service worker</button>
     <button onclick="fetch('/clearSiteDataOn')">Turn on Clear-Site-Data</button>
+    <button onclick="fetch('/unregister')">Unregister</button>
   </body>
 </html>
