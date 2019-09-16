@@ -15,25 +15,11 @@ async function useCache(req) {
   return fetch(req);
 }
 
-
 self.addEventListener('activate', (e) => {
   e.waitUntil(self.clients.claim());
 });
 
 self.addEventListener('fetch', async (e) => {
-  console.log('Hey ho');
-  const simulateWork = new Promise(function(resolve) {
-    const logging = setInterval(function() {
-      console.log('Simluate SW work');
-    }, 1000);
-    setTimeout(() => {
-      clearInterval(logging);
-      resolve();
-    }, 60 * 1000);
-  });
-
-  e.waitUntil(simulateWork);
-
   const url = new URL(e.request.url);
   if (url.pathname === '/sw-page' || url.pathname === '/') {
     e.respondWith(useCache(e.request));
