@@ -3,11 +3,18 @@
     <script type="text/javascript" src="script.js"></script>
     <script type="text/javascript">
       navigator.serviceWorker.register('sw.js');
+      function update() {
+        navigator.serviceWorker.getRegistration().then((reg) => {
+          return reg.update();
+        });
+      }
     </script>
   </head>
   <body>
     Clear-Site-Data test app
     <button onclick="fetch('/clearSiteDataOn')">Turn on Clear-Site-Data</button>
     <button onclick="fetch('/unregister')">Unregister</button>
+    <button onclick="fetch('/script.js')">Fetch script</button>
+    <button onclick="update()">Update SW</button>
   </body>
 </html>
